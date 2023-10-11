@@ -2,28 +2,28 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: red;
-  margin-top: 60px;
+  color: #224;
 }
 h1,h2,h3,h4,h5,h6 {
   text-align: center;
+  margin-top: 8px;
 }
-#bubble-chart text {
-  fill: white;
-  font-family: 'Arial', sans-serif;
-  pointer-events: none;
+.top {
+  display: flex;
+  align-items: center;
 }
-svg {
-  width: 100vw;
+.categories {
+  font-size: small;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 4px;
 }
-text {
-  font-size: 9pt;
-  text-align: center;
-}
-#visualization-container {
-  position: relative;
-  width: min(calc(100vw - 32em),1200px);
-  height: 600px;
+.categories > * {
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  padding: 8px;
 }
 .hidden {
   opacity: 0;
@@ -78,12 +78,38 @@ button.inactive {
     1px 1px var(--shadow);
     
 }
-.cols {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  max-height: 90vh;
+
+@media (min-width: 900px) {
+  .cols {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    max-height: 90vh;
+  }
+  
+  #visualization-container {
+    position: relative;
+    width: min(calc(100vw - 32em),1200px);
+    height: 600px;
+  }
+  
 }
+@media (max-width: 899px) {
+  #visualization-container {
+    position: relative;
+    width: 90vw;
+    margin: auto;
+    height: 70vh;
+  }
+  .top {
+    font-size: 14px;
+  }
+  .top h1 {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+  
 button {
     background-color: #4CAF50; /* Green */
     border: none;
