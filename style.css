@@ -10,6 +10,13 @@ h1,h2,h3,h4,h5,h6 {
   text-align: center;
   margin-top: 8px;
 }
+h1 {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  --accent: transparent;
+  text-decoration-color: var(--accent);
+}
+
 .top {
   display: flex;
   align-items: center;
@@ -26,6 +33,10 @@ h1,h2,h3,h4,h5,h6 {
   border: 1px solid #aaa;
   border-radius: 8px;
   padding: 8px;
+  font-weight: bold;
+  font-size: small;
+  background-color: var(--accent);
+  color: var(--contrast);
 }
 .hidden {
   opacity: 0;
@@ -77,7 +88,9 @@ button.inactive {
   opacity: 0.5;
 }
 .bubble.active {
-  border: 3px solid #0033a0;  
+  border: 5px solid #ffd505;  
+  filter: brightness(1.2)saturate(1.2);
+  transform: scale(0.8);
 }
 .bubble {
   --shadow : var(--bg);
@@ -145,8 +158,13 @@ button:hover {
 
 .close {
     color: #f44336; /* Red */
+    text-shadow: 
+      1px 0px white, 
+      -1px -0px white,
+      0px 1px white,
+      0px -1px white;
     background-color: transparent;
-  padding: 0;
+    padding: 0;
 }
 
 .close:hover {
@@ -159,4 +177,12 @@ button.close {
   height: 32px;
   display: inline-grid;
   place-content: center;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
 }

@@ -72,7 +72,6 @@ function setupBackButton (selectedTopic, selectedCategories) {
   
   selectedTopic.subscribe(
     (t)=>{
-      console.log('Topic change, change button',t)
       backButton.classed('inactive',!t);
     }
   )
@@ -90,8 +89,10 @@ function setupTitle (selectedTopic) {
     (t)=>{
       if (!t) {
         h1.text('Select a Topic!')
+        h1.style('--accent','');
       } else {
         h1.text(t)
+        h1.style('--accent',getColor(t));
       }
     }
   );  
@@ -102,11 +103,16 @@ function setupCategoryHeadings(selectedCategories) {
   selectedCategories.subscribe((cc) => {
     // Bind the data to our DOM elements
     const categoryHeadings = container.selectAll('.category-heading')
-      .data(cc, d => d);
+      .data(cc, d => d)
+      //.text(d=>d)
+      //.style('--accent',d=>d&&getColor(d))
+      ;
 
     // Enter: What to do with new data points
     const newHeadings = categoryHeadings.enter().append('div')
-      .attr('class', 'category-heading')
+      .attr('class', 'category-heading')      
+      .style('--accent',d=>d&&getColor(d))
+      .style('--contrast',d=>d&&getTextColor(getColor(d)))
       .text(d => d);
 
     newHeadings.append('button')
