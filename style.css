@@ -1,0 +1,121 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: red;
+  margin-top: 60px;
+}
+h1,h2,h3,h4,h5,h6 {
+  text-align: center;
+}
+#bubble-chart text {
+  fill: white;
+  font-family: 'Arial', sans-serif;
+  pointer-events: none;
+}
+svg {
+  width: 100vw;
+}
+text {
+  font-size: 9pt;
+  text-align: center;
+}
+#visualization-container {
+  position: relative;
+  width: min(calc(100vw - 32em),1200px);
+  height: 600px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-height: 100%;
+  overflow-y: auto;
+}
+ul li {
+  border-top: 1px solid #aaa;
+}
+ul li:first-child {
+  border-top: 0px;
+}
+
+button.inactive {
+  opacity: 0;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.8;
+  background-color: #aef;
+  color: #223232;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bubble.inactive {
+  background-color: #cfcfcf;
+  opacity: 0.5;
+}
+.bubble.active {
+  border: 3px solid #0033a0;  
+}
+.bubble {
+  --shadow : var(--bg);
+  color: var(--fg);
+  backgound-color: var(--bg);
+  text-shadow: 
+    1px 1px var(--shadow), 
+    -1px 1px var(--shadow), 
+    1px -1px var(--shadow),
+    1px 1px var(--shadow);
+    
+}
+.cols {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  max-height: 90vh;
+}
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid #4CAF50;
+}
+
+.close {
+    color: #f44336; /* Red */
+    background-color: transparent;
+  padding: 0;
+}
+
+.close:hover {
+    color: #da190b; /* Darker red */
+}
+
+
+button.close {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-content: center;
+}
