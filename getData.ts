@@ -11,12 +11,14 @@ type ProjectData = {
 
 let LOCAL = 'localData'
 export async function fetchProjectData(): Promise<ProjectData | null> {
+  document.getElementById('loading').classList.remove('hidden')
   const url = "https://script.google.com/macros/s/AKfycbyJwlNkLfQJAJ7srNj_hLVyZh7VzN0QHdqUkkNpC9F1vEdB3UIgkGXyR4CTOGT3eMKIkA/exec";
 
   let localData = localStorage.getItem(LOCAL);
   if (localData) {
     try {
       let data = JSON.parse(localData);
+      document.getElementById('loading').classList.add('hidden')
       return data;
     } catch (err) {
       console.log(err);
@@ -35,6 +37,7 @@ export async function fetchProjectData(): Promise<ProjectData | null> {
     // Parse and return the JSON data
     const data: ProjectData = await response.json();
     localStorage.setItem(LOCAL, JSON.stringify(data));
+    document.getElementById('loading').classList.add('hidden')
     return data;
   } catch (error) {
     // Log any errors to the console

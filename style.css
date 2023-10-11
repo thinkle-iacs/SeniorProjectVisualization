@@ -25,7 +25,10 @@ text {
   width: min(calc(100vw - 32em),1200px);
   height: 600px;
 }
-
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
 ul {
   list-style-type: none;
   padding: 0;
