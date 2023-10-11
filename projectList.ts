@@ -16,7 +16,7 @@ export function setupProjectList(projectList) {
           .attr('class', 'project-item')
           .style('opacity',0)
           //.style('transform', 'translateY(-100px)')
-          .text(p => p.title)
+          .html(p => `${p.title} <span>(${p.year})</span>`)
           .transition()
           .duration(500)
           .style('opacity',1)
