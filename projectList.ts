@@ -1,6 +1,22 @@
 import * as d3 from 'd3';
-export function setupProjectList(projectList) {
+export function setupProjectList(projectList, yogs) {
+
+    yogs.subscribe(
+      (activeYogs)=>{
+        let projects = projectList.get();
+        updateProjects(projects,activeYogs);
+      }
+    )
+  
     projectList.subscribe(projects => {
+      let activeYogs = yogs.get();
+      updateProjects(projects,activeYogs);
+    });
+
+    function updateProjects (projects, activeYogs) {
+      projects = projects.filter(
+        (p)=>activeYogs[p.year]
+      )
       const projectContainer = d3.select('#project-container');         
       projectContainer
         .select('h3')
@@ -29,5 +45,5 @@ export function setupProjectList(projectList) {
         .style('opacity',0)
         .style('height','1px')
         .remove();
-    });
+    }
 }

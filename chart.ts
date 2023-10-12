@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import {getColor, getTextColor} from './colors';
 import {setupProjectList} from './projectList';
+import {setupYogFilters} from './yogFilters'
 function store (value : any) {
   let __value = value;
   let subscribers = [];  
@@ -33,6 +34,12 @@ function setupStores (data) {
   let selectedCategories = store([]);
   let projectList = store(data.projects);
   let categories = store([]);
+  let yogMap = {}
+  for (let p of data.projects) {
+    yogMap[p.year] = true;
+  }
+  let yogs = store(yogMap);
+  
   selectedTopic.subscribe(
     (t)=>{
       if (t) {
@@ -63,7 +70,8 @@ function setupStores (data) {
     selectedTopic,
     selectedCategories: selectedCategories,
     projectList,
-    categories
+    categories,
+    yogs
   }
 }
 
@@ -135,13 +143,15 @@ function setupCategoryHeadings(selectedCategories) {
 }
 
 
+
 export function createChart (data) {
   
-  const {selectedTopic, selectedCategories, projectList, categories} = setupStores(data);
-  setupProjectList(projectList);
+  const {selectedTopic, selectedCategories, projectList, categories, yogs} = setupStores(data);
+  setupProjectList(projectList,yogs);
   setupBackButton(selectedTopic,selectedCategories);
   setupTitle(selectedTopic)
   setupCategoryHeadings(selectedCategories)
+  setupYogFilters(yogs,projectList);
   // Select the container
   const container = d3.select("#visualization-container");  
   const width = +container.style("width").slice(0, -2);

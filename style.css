@@ -186,3 +186,17 @@ footer {
   width: 100%;
   padding: 16px;
 }
+
+#yog-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+label {
+  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  margin-right: 1em;
+}
