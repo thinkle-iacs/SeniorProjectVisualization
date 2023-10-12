@@ -167,6 +167,20 @@ export function createChart (data) {
     .force("collide", d3.forceCollide(d => radiusScale(d.value) + 10))
     .on("tick", ticked);
 
+  yogs.subscribe(
+    (yogsActive) => {
+      let pp = projectList.get();
+      container.selectAll('.bubble')
+      .text(d => `${d.name} (${pp.filter(
+        p => (p.categories.includes(d.name) || p.topics.includes(d.name)) && yogsActive[p.year]
+      ).length})`)
+      .classed('inactive',d => !pp.find(
+        p => (p.categories.includes(d.name) || p.topics.includes(d.name)) && yogsActive[p.year]
+      ))
+
+    }
+  )
+
   function renderBubbles(items) {
     const bubbles = container.selectAll(".bubble")      
       .data(items, d => d.name)
