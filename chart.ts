@@ -156,6 +156,46 @@ export function createChart (data) {
   const container = d3.select("#visualization-container");  
   const width = +container.style("width").slice(0, -2);
   const height = +container.style("height").slice(0, -2);
+
+  function forceBoundary(width, height, padding=15) {
+    let nodes;
+
+    function force(alpha) {
+      for (const node of nodes) {
+        if (node.x - padding < 0) node.vx += (padding - node.x) * alpha;
+        else if (node.x + padding > width) node.vx -= (node.x + padding - width) * alpha;
+
+        if (node.y - padding < 0) node.vy += (padding - node.y) * alpha;
+        else if (node.y + padding > height) node.vy -= (node.y + padding - height) * alpha;
+      }
+    }
+
+    force.initialize = function(_) {
+      nodes = _;
+    };
+
+    return force;
+  }
+
+  function clampX (x,r) {
+    if (x < 0) {
+      return 0
+    }
+    if (x > width-r) {
+      return width - r
+    }
+    return x;
+  }
+  function clampY (y,r) {
+    if (y < 0) {
+      return 0
+    }
+    if (y > height-r) {
+      return height - r
+    }
+    return y;
+  }
+  
   const constraint = width > height && height || width;
   const radiusScale = d3.scaleSqrt()
     .domain([0, d3.max(data.topics, d => data.projects.filter(p => p.topics.includes(d)).length)])
@@ -165,6 +205,7 @@ export function createChart (data) {
     .force("x", d3.forceX(width / 2).strength(0.05))
     .force("y", d3.forceY(height / 2).strength(0.05))
     .force("collide", d3.forceCollide(d => radiusScale(d.value) + 10))
+    .force("boundary",forceBoundary(width,height))
     .on("tick", ticked);
 
   yogs.subscribe(
@@ -233,15 +274,17 @@ export function createChart (data) {
       const categoryItems = categories.get().map(c => ({ name: c, value: data.projects.filter(p => p.categories.includes(c)).length }));
       renderBubbles(categoryItems);
     } else {
-      const topicItems = data.topics.map(t => ({ name: t, value: data.projects.filter(p => p.topics.includes(t)).length }));
+      const topicItems = data.topics.map(t => ({ name: t, value: data.projects.filter(p => p.topics.includes(t)).length ,
+      x : Math.random() * width, 
+      y : Math.random() * height}));
       renderBubbles(topicItems);
     }
   }
   
   function ticked() {
     container.selectAll(".bubble")
-      .style("left", d => `${d.x - radiusScale(d.value)}px`)
-      .style("top", d => `${d.y - radiusScale(d.value)}px`);
+      .style("left", d => `${clampX(d.x - radiusScale(d.value),radiusScale(d.value))}px`)
+      .style("top", d => `${clampY(d.y - radiusScale(d.value),radiusScale(d.value))}px`);
   }
 
   selectedTopic.subscribe((t) => {
