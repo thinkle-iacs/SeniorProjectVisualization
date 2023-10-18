@@ -124,7 +124,7 @@ function setupCategoryHeadings(selectedCategories) {
       .text(d => d);
 
     newHeadings.append('button')
-      .text('x')
+      .text('×')
       .classed('close',true)
       .on('click', (event, d) => {
         // Get the current selected categories
@@ -147,7 +147,7 @@ function setupCategoryHeadings(selectedCategories) {
 export function createChart (data) {
   
   const {selectedTopic, selectedCategories, projectList, categories, yogs} = setupStores(data);
-  setupProjectList(projectList,yogs);
+  setupProjectList(projectList,yogs,selectedCategories);
   setupBackButton(selectedTopic,selectedCategories);
   setupTitle(selectedTopic)
   setupCategoryHeadings(selectedCategories)
