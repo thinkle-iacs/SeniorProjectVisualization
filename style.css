@@ -95,7 +95,7 @@ button.inactive {
 .bubble {
   --shadow : var(--bg);
   color: var(--fg);
-  backgound-color: var(--bg);
+  background-color: var(--bg);
   text-shadow: 
     1px 1px var(--shadow), 
     -1px 1px var(--shadow), 
@@ -193,13 +193,50 @@ footer {
   align-items: center;
 }
 
-label {
+label:has(input[type="checkbox"]) {
   display: inline-block;
   display: inline-flex;
   align-items: center;
   flex-direction: row-reverse;
   margin-right: 1em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  opacity: 0.8;
 }
+label:has(input[type="checkbox"]):hover {
+  transform: scale(1.05);
+}
+
+label:has(input:checked) {
+  font-weight: bold;
+  opacity: 1;
+}
+
+label:has(input[type="checkbox"])::after {
+  animation: pop-in 300ms;
+  content: " ";
+  display: inline-block;
+  width: .5em;
+  height: .5em;
+  background-color: white;
+  border: 3px solid #3a3a3a;
+  border-radius: 3px;
+  margin-right: 2px;
+  transition: all 300ms;
+  transform: scale(0.7);
+}
+
+
+label:has(input[type="checkbox"]:checked)::after {
+  background-color: #333;
+  border-color: #ccc;
+  transform: rotateY(180deg);
+}
+label input[type="checkbox"] {
+  display: none;
+}
+
+
 .project-item {
   display: flex;
   align-items: center;

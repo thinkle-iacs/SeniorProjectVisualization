@@ -19,7 +19,7 @@ export function setupYogFilters(yogStore, projectList) {
   )
 
   function updateYogFilter(yogs, projects) {
-    let yearValues = [];
+    let yearValues : {year : number, active : boolean}[] = [];
     for (let y in yogs) {
       yearValues.push(
         {
@@ -37,7 +37,7 @@ export function setupYogFilters(yogStore, projectList) {
     // Create a checkbox input for each year
     // with its value set by the active property...
     let checkboxes = container.selectAll('label')
-      .data(yearValues)
+      .data(yearValues, (yv)=>yv.year)
       .join('label')
       .text((d) => d.year)
       .append('input')
